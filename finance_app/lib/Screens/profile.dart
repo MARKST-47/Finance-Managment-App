@@ -1,8 +1,10 @@
 import 'dart:ui';
+import 'package:finance_app/Screens/login.dart';
+import 'package:finance_app/Screens/settings.dart';
 import 'package:intl/intl.dart';
 import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
-
+import 'package:finance_app/theme.dart';
 import 'edit_profile.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -13,7 +15,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  static Color my_color1 = Color.fromARGB(255, 128, 4, 150);
+  static Color my_color1 = kPrimaryColor;
   Currency my_Currency = Currency(
       code: "INR",
       name: "Rupees",
@@ -65,42 +67,46 @@ class _ProfilePageState extends State<ProfilePage> {
                             boxShadow: [
                               BoxShadow(
                                   color: my_color1,
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  offset: Offset(10, 15))
+                                  spreadRadius: 0.5,
+                                  blurRadius: 5,
+                                  offset: Offset(4, 8))
                             ],
                             gradient: LinearGradient(
                                 begin: Alignment.bottomCenter,
                                 end: Alignment.topCenter,
-                                colors: <Color>[Colors.white, Colors.white])),
+                                colors: <Color>[
+                                  kWhiteColor,
+                                  Color.fromARGB(234, 233, 233, 233)
+                                ])),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
                               width: 80,
                               height: 80,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 87, 3, 102),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: my_color1,
-                                      spreadRadius: 2,
-                                      blurRadius: 10,
-                                      offset: Offset(10, 15)),
-                                ],
+                                gradient: LinearGradient(
+                                  colors: [kPrimaryColor, kDarkGreyColor],
+                                  begin: Alignment.bottomLeft,
+                                  end: Alignment.topRight,
+                                ),
                               ),
                               child: Center(
                                   child: Text(
                                 "P",
-                                style: TextStyle(
-                                    fontSize: 50, color: Colors.white),
+                                style:
+                                    TextStyle(fontSize: 50, color: kWhiteColor),
                               )),
                             ),
                             SizedBox(
                               height: 30,
                             ),
-                            Text("Profile"),
+                            Text(
+                              "Profile",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w500),
+                            ),
                           ],
                         ),
                       ),
@@ -111,48 +117,56 @@ class _ProfilePageState extends State<ProfilePage> {
               SizedBox(
                 height: 140,
               ),
-
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       shape: StadiumBorder(),
-                      backgroundColor: my_color1,
+                      backgroundColor: kPrimaryColor,
                       padding: EdgeInsets.symmetric(horizontal: 20)),
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => EditProfile()));
                   },
                   child: Text(
-                    "Edit Prifile",
+                    "Edit Profile",
                   )),
               //
               SizedBox(
                 height: 20,
               ),
               Container(
-                child: ListTile(
-                  leading: Container(
-                    width: 40,
+                child: InkWell(
+                  onTap: () => {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Settings()))
+                  },
+                  child: ListTile(
+                    leading: Container(
+                      width: 40,
 
-                    height: 40,
+                      height: 40,
 
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: my_color1,
-                    ), // BoxDecoration
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: my_color1,
+                      ), // BoxDecoration
 
-                    child: const Icon(Icons.person_2_outlined),
-                  ), // Container
+                      child: const Icon(Icons.settings),
+                    ), // Container
 
-                  title: Text("Test profile"),
+                    title: Text("Settings"),
 
-                  trailing: Container(
-                    width: 30,
+                    trailing: Container(
+                      width: 30,
 
-                    height: 30,
+                      height: 30,
 
-                    // BoxDecoration
-                  ), // Container
+                      // BoxDecoration
+                    ), // Container
+                  ),
                 ),
+              ),
+              SizedBox(
+                height: 15,
               ),
               InkWell(
                 onTap: () {
@@ -171,52 +185,50 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: ListTile(
                   leading: Container(
                     width: 40,
-
                     height: 40,
-
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
-                      color: my_color1,
+                      color: kDarkGreyColor,
                     ), // BoxDecoration
-
-                    child: Image.asset('images/currency.png'),
+                    child: Image.asset('images/Currency.png'),
                   ), // Container
-
                   title: Text(
                     "Currency : ${my_Currency.name}",
                   ),
-
                   trailing: Container(
                     width: 30,
-
                     height: 30,
-
                     // BoxDecoration
                   ), // Container
                 ),
               ),
-
+              SizedBox(
+                height: 15,
+              ),
               ListTile(
                 leading: Container(
                   width: 40,
-
                   height: 40,
-
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
-                    color: my_color1,
+                    color: kDarkGreyColor,
                   ), // BoxDecoration
 
                   child: const Icon(Icons.logout_rounded),
                 ), // Container
 
-                title: Text("Logout"),
+                title: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LogInScreen()));
+                    },
+                    child: Text("Logout")),
 
                 trailing: Container(
                   width: 30,
-
                   height: 30,
-
                   // BoxDecoration
                 ), // Container
               ),
